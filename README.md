@@ -1,3 +1,12 @@
 # Game-Solution
 Sudoku Solver/Generator
-do not freak me out
+sudoku = read
+fhrjdjkckff
+djdjjf
+dkdjkvjv
+djjmvkf
+jkvjvjvj
+cf fedf
+d
+cdfg
+f dfedggfhg
