@@ -4,7 +4,7 @@ from copy import deepcopy
 
 base  = 3
 side  = base*base
-symbol = " 123456789"
+symbol = "123456789"
 rBase = range(base)
 
 # pattern for a baseline valid solution
