@@ -4,9 +4,8 @@ from copy import deepcopy
 
 base  = 3
 side  = base*base
-symbol = "123456789"
 rBase = range(base)
-
+symbol = " 123456789"
 # pattern for a baseline valid solution
 def pattern(r,c):
 	return (base*(r%base)+r//base+c)%side
@@ -17,10 +16,20 @@ def pattern(r,c):
 def shuffle(s):
 	return sample(s,len(s))
 
- 
-rows  = [ g*base + r for g in shuffle(rBase) for r in shuffle(rBase) ] 
-cols  = [ g*base + c for g in shuffle(rBase) for c in shuffle(rBase) ]
 nums  = shuffle(range(1,base*base+1))
+
+def grid_layout(rBase):
+	axis = []
+	for g in shuffle(rBase):
+		for r in shuffle(rBase):
+			axis.append(g*base +r)
+	return axis
+
+rows = grid_layout(rBase)
+cols = grid_layout(rBase)
+
+# rows  = [ g*base + r for g in shuffle(rBase) for r in shuffle(rBase) ] 
+# cols  = [ g*base + c for g in shuffle(rBase) for c in shuffle(rBase) ]
 
 
 
@@ -35,17 +44,19 @@ def print_board(b):
 	line2  = expandLine("╟───┼───╫───╢")
 	line3  = expandLine("╠═══╪═══╬═══╣")
 	line4  = expandLine("╚═══╧═══╩═══╝")
-
-	
-	nums2   = [ [""]+[symbol[n] for n in row] for row in b]
+	nums2   = [ [""]+[symbol[n] for n in row] for row in b ]
 	print(line0)
 	for r in range(1,side+1):
 		print( "".join(n+s for n,s in zip(nums2[r-1],line1.split("."))) )
 		print([line2,line3,line4][(r%side==0)+(r%base==0)])
 
-
-
 def puzzle():
+	# board = []
+	# for c in cols:
+	# 	for r in rows:
+	# 		board.append(nums[pattern(r,c)])
+	# print_board(board)
+
 
 	# produce board using randomized baseline pattern
 	board = [ [nums[pattern(r,c)] for c in cols] for r in rows ]
@@ -69,9 +80,3 @@ print_board(b)
 
 print('=== Initial filled in board ===')
 print_board(b0)	
-
-
-
-puzzle()
-puzzle()
-puzzle()
