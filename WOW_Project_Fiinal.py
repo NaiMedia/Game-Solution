@@ -1,3 +1,7 @@
+# Sudoku Generator
+# Our Sudoku board is generated as a nested list (i.e a list of
+# 9 lists with 9 numbers within each list.) Our generator creates
+# a 9 X 9 matrix consisting of nine 3 X 3 smaller matrices.     
 from random import sample
 from copy import deepcopy
 
@@ -6,17 +10,33 @@ base  = 3
 side  = base*base
 rBase = range(base)
 symbol = " 123456789"
-# pattern for a baseline valid solution
+
+
+# Pattern for a baseline valid solution. Our pattern will assign
+# the index of each inner and outer list 3 X 3 at a time from left
+# to right.  
+
 def pattern(r,c):
 	return (base*(r%base)+r//base+c)%side
 
-# randomize rows, columns and numbers (of valid base pattern)
-
+# We define a shuffle function using the sample mathod from random
+# The sample() methon that returns a list of unique elements chosen
+# randomly from the list provided. The randomly selected list consists
+# of a specified number of items provided.
 
 def shuffle(s):
 	return sample(s,len(s))
 
+# In this case we enter the range of 1 through 9 for our 9 X 9 sudoku
+
 nums  = shuffle(range(1,base*base+1))
+
+# We define a grid layout function that we use in conjuction with our 
+# pattern function to create each inner list within our main
+# outer list as well as outer list. We do this by shuffling the numbers
+# 0, 1, 2 multipying them by our base (in this case 3) then adding another
+# random number from 0,1,or 2. This will be used in conjuction with the 
+# pattern function. 
 
 def grid_layout(rBase):
 	axis = []
@@ -28,15 +48,12 @@ def grid_layout(rBase):
 rows = grid_layout(rBase)
 cols = grid_layout(rBase)
 
-# rows  = [ g*base + r for g in shuffle(rBase) for r in shuffle(rBase) ] 
-# cols  = [ g*base + c for g in shuffle(rBase) for c in shuffle(rBase) ]
-
-
+# next two functions are used to draws the grid lines around our board
 
 def expandLine(line):
     return line[0]+line[5:9].join([line[1:5]*(base-1)]*base)+line[9:13]
 
-#draws the lines around our board
+
 def print_board(b):
 
 	line0  = expandLine("╔═══╤═══╦═══╗")
@@ -51,23 +68,19 @@ def print_board(b):
 		print([line2,line3,line4][(r%side==0)+(r%base==0)])
 
 def puzzle():
-	# board = []
-	# for c in cols:
-	# 	for r in rows:
-	# 		board.append(nums[pattern(r,c)])
-	# print_board(board)
-
-
+	
 	# produce board using randomized baseline pattern
 	board = [ [nums[pattern(r,c)] for c in cols] for r in rows ]
-	#copy the filled in board into board0
+
+	# copy the filled in board into board0
 	board0 = deepcopy(board)
 
-	# getting numbers out
+	# getting numbers out of our grid. 
 	squares = side*side
 	empties = squares * 3//4
 	for p in sample(range(squares),empties):
 		board[p//side][p%side] = 0
+	
 	return(board0, board)
 
 	
