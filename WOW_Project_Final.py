@@ -37,7 +37,7 @@ def shuffle(s):
 nums  = shuffle(range(1, side + 1))
 
 # We define a grid layout function that we use in conjuction with our 
-# pattern function. We use the empy list axis in order to access the numbers
+# pattern function. We use the empty list axis in order to access the numbers
 # we will then use as inputs for our pattern function. Because we are 
 # shuffling our rBase, the numbers that are returned in axis will be random calculations
 # of 0, 1, or 2 times base. 
@@ -53,7 +53,7 @@ def grid_layout(rBase):
 rows = grid_layout(rBase)
 cols = grid_layout(rBase)
 
-# next two functions are used to draws the grid lines around our board
+# the next two functions are used to draws the grid lines around our board
 
 def expandLine(line):
     return line[0]+line[5:9].join([line[1:5]*(base-1)]*base)+line[9:13]
@@ -81,7 +81,7 @@ def puzzle():
 
 	board = [ [nums[pattern(r,c)] for c in cols] for r in rows ]
 
-	# This varialbe copies the original filled in board into board0
+	# This variable copies the original filled in board into board0
 	board0 = deepcopy(board)
 
 	# This part of the puzzle() function is randomly removing numbers from our original board. 
